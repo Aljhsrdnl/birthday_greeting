@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Happy Birthday!!!</title>
+    <link rel="shortcut icon" type="image/jpg" href="favicon.jpg"/>
+</head>
+<body>
+    <div class="greeting">
+        <h1 id="msg"></h1>
+    </div>
+    
+    <script>
+        
+        var msgs = ["Happy Birthday, Love!",
+                    "Thank you for everything.",
+                    "I got your back always.",
+                    "I love you! 💓💓💓"];
+
+        var cur_sentence = 0;
+        var char = 0;
+        var interval_val;
+        var text_handler = document.getElementById("msg");
+        
+
+        //typing effect
+        const type = () => {
+            var text = msgs[cur_sentence].substring(0, char + 1);
+            text_handler.innerHTML = text;
+            char++;
+
+            if(text === msgs[cur_sentence]) {
+                //hide cursor
+                //cursor.style.display = "none";
+
+                clearInterval(interval_val);
+                setTimeout(()=> {
+                    interval_val = setInterval(deleteEffect, 100);
+                }, 1000);
+            }
+        }
+
+        //deleting effect
+        const deleteEffect = () => {
+            var text = msgs[cur_sentence].substring(0, char -1);
+            text_handler.innerHTML = text;
+            char--;
+
+            if(text === "") {
+                clearInterval(interval_val);
+
+                if(cur_sentence == (msgs.length -1)){
+                    cur_sentence = 0;
+                }
+                else {
+                    cur_sentence++;
+                }
+
+                char = 0;
+
+                setTimeout(()=> {
+                   
+                    interval_val = setInterval(type, 100);
+                }, 200);
+            }
+        }
+        
+        interval_val = setInterval(type, 100);
+        
+    </script>
+</body>
+</html>
